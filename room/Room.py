@@ -85,20 +85,21 @@ class BaseRoom(Room, ABC): #habitación predeterminada
     # def map_representation(self): #para cambiar cómo se ve en el mapa
     #     self.player.representation_for_floor__(self)
     
-    def map(self): #para el mapping de la sala
+    def map(self, color): #para el mapping de la sala
         current_cuadricule = 0
         cuadricule_lines = 9
         for cuadricule in range(cuadricule_lines):
-            self.map_line(current_cuadricule)
+            self.map_line(current_cuadricule, color)
             current_cuadricule += 13
 
-    def map_line(self, current_cuadricule: int): #para cada línea del mapping
+    def map_line(self, current_cuadricule: int, color): #para cada línea del mapping
         final_line = ""
         cuadricule_lines = 13
         for cuadricule in range(cuadricule_lines):
             final_line += f" {self.inside_cuadricules[current_cuadricule].map_representation()}"
             current_cuadricule += 1
-        print(final_line)
+        CLR_RST = "\033[0m"
+        print(color+final_line+CLR_RST)
     
     
     def set_player(self, player: Player): #setea al jugador para poder preguntar su representación en el mapa

@@ -112,16 +112,16 @@ class Match(): #el objeto que es las partidas en sí
           match final_response:
             case "w": #mover arriba
                 self.player.move_up()
-                self.player.show_screen()
+                # self.player.show_screen()
             case "a": #mover izquierda
                 self.player.move_left()
-                self.player.show_screen()
+                # self.player.show_screen()
             case "s": #mover abajo
                 self.player.move_down()
-                self.player.show_screen()
+                # self.player.show_screen()
             case "d": #mover derecha
                 self.player.move_right()
-                self.player.show_screen()
+                # self.player.show_screen()
             case "m": #mapa
                 self.player.show_map()
             case "o": #options
