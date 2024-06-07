@@ -1,6 +1,6 @@
 
 from room.RoomObjects import Air
-from abc import ABC, abstractclassmethod
+from abc import abstractmethod
 from entities.Player import Player
 from entities.GeneralEntities import Box
 from room.Cuadricule import Cuadricule
@@ -9,16 +9,20 @@ from resources.CardinalDirection import CardinalDirection, South
 # from resources.Exceptions import ImpossibleMovement
 from room.RoomObjects import *
 
-class Room(ABC): #habitación
+class Room(): #habitación
     def __init__(self):
         self.player = NoPlayer()
         self.inside_cuadricules = self.default_cuadricules()
+        
+    def env_turn(self):
+        for cuadricule in self.inside_cuadricules:
+            cuadricule.do_turn()
 
-    @abstractclassmethod
+    @abstractmethod
     def default_cuadricules(self):
         pass
 
-    @abstractclassmethod
+    @abstractmethod
     def player_enter_with_num_from_cardinal(self, player: Player): #el jugador entra a la sala y se registra
         pass
     
@@ -27,19 +31,19 @@ class Room(ABC): #habitación
 
      #le paso la mano al jugador para que se mueva al otro piso
 
-    @abstractclassmethod
+    @abstractmethod
     def move_player__to_next_room_north(self, player: Player): #subclass resp
         pass
 
-    @abstractclassmethod
+    @abstractmethod
     def move_player__to_next_room_west(self, player: Player): #subclass resp
         pass
 
-    @abstractclassmethod
+    @abstractmethod
     def move_player__to_next_room_south(self, player: Player): #subclass resp
         pass
 
-    @abstractclassmethod
+    @abstractmethod
     def move_player__to_next_room_east(self, player: Player): #subclass resp
         pass
     
@@ -52,9 +56,9 @@ class Room(ABC): #habitación
         self.player.take_damage_from(entity)
 
 
-class BaseRoom(Room, ABC): #habitación predeterminada
+class BaseRoom(Room): #habitación predeterminada
     
-    @abstractclassmethod
+    @abstractmethod
     def default_cuadricules(self):
         # north_door = Cuadricule(Door(North()))
         # west_door = Cuadricule(Door(West()))
@@ -76,12 +80,12 @@ class BaseRoom(Room, ABC): #habitación predeterminada
         # return inside_cuadricules
         pass
     
-    @abstractclassmethod
+    @abstractmethod
     def __repr__(self): #para cambiar cómo se ve en el mapa
         # return "■"
         pass
     
-    # @abstractclassmethod
+    # @abstractmethod
     # def map_representation(self): #para cambiar cómo se ve en el mapa
     #     self.player.representation_for_floor__(self)
     

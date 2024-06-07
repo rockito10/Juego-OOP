@@ -1,14 +1,14 @@
 from structure.Floor import *
 from entities.Player import Player
-from abc import ABC, abstractclassmethod
+from abc import abstractmethod
 
 
-class Map(ABC): #Mapa base
+class Map(): #Mapa base
     def __init__(self):
         self.floors = self.floor_list() #acá van los pisos que se recorren, nunca vacío
         self.current_floor_num = 0
         
-    @abstractclassmethod #defino los pisos para este mapa (partida)
+    @abstractmethod #defino los pisos para este mapa (partida)
     def floor_list(self):
         pass
 
@@ -23,6 +23,10 @@ class Map(ABC): #Mapa base
         print(f"Putting player in floor {self.current_floor_num}")
         desired_floor = self.floors[self.current_floor_num]
         desired_floor.put_player(player)
+        
+    def env_turn(self):
+        print("TURNO DEL ENTORNO")
+        self.floors[self.current_floor_num].env_turn()
 
 
 class DefaultMap(Map): #Mapa predeterminado

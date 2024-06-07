@@ -1,17 +1,20 @@
 #Objetos dentro de la habitación (en el sentido literal)
-from abc import ABC, abstractclassmethod
+from abc import abstractmethod
 from resources import CardinalDirection
 
-class RoomObject(ABC):
+class RoomObject():
+    
+    def turn(self):
+        pass
     
     def set_cuadricule(self, cuadricule): #la mayoría no debería usarlo, esto es para las entidades
         pass
 
-    @abstractclassmethod
+    @abstractmethod
     def representation_for_room__(self, cuadricule): #Cómo se ve
         pass
     
-    @abstractclassmethod
+    @abstractmethod
     def locate_player_in_room_in_cuadricule_num(self, room, num): #finaliza el pase de manos
         pass
 

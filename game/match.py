@@ -131,9 +131,13 @@ class Match(): #el objeto que es las partidas en sí
                 self.game.close()
             case _:
                 self.unused_key_warning()
+                
+        
         except KeyboardInterrupt:
-            # print("so")
+            
             self.unused_key_warning()
+            
+        self.generated_map.env_turn()    
             
         self.take_input_and_respond(test_controls)
 

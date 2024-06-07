@@ -2,14 +2,15 @@ from room.RegularRooms import *
 from room.Room import WallRoom, BossRoom_1_South
 from entities.Player import Player
 from resources.CardinalDirection import North, West, South, East, CardinalDirection
-from abc import ABC, abstractclassmethod
+from abc import abstractmethod
 
 
-class Floor(ABC): #piso
+class Floor( ): #piso
     def __init__(self):
      self.rooms = self.default_rooms()
+     self.current_player_room = WallRoom()
 
-    @abstractclassmethod
+    @abstractmethod
     def default_rooms(self):
         # return [ WallRoom(), WallRoom(), WallRoom(), WallRoom(), WallRoom(),
         #             WallRoom(), WallRoom(), WallRoom(), WallRoom(), WallRoom(),
@@ -19,18 +20,16 @@ class Floor(ABC): #piso
         #            ]
         pass
      
-    @abstractclassmethod
+    @abstractmethod
     def cardinal_starting_direction(self):
-        # return South()
         pass
 
-    @abstractclassmethod
+    @abstractmethod
     def cuadricule_starting_point(self):
-        # return 23
         pass
      
     def put_player(self, player: Player):
-        print(f"Putting player in room 24")
+        # print(f"Putting player in room 24")
         self.in_room_num_locate_player_from_cardinal(self.cuadricule_starting_point(), player, self.cardinal_starting_direction()) #entra el jugador a la habitación 24 (0 -> 24)
         player.enter_floor(self)
      
@@ -48,16 +47,17 @@ class Floor(ABC): #piso
             room_to_map += [self.rooms[current_room_pointer].map_representation()]
             # print(self.rooms[current_room_pointer].map_representation())
             current_room_pointer += 1
-        return(room_to_map)
+        return room_to_map
         
-    # @abstractclassmethod
-    # def put_player(self):
-    #     #self.rooms[num].playerEnter(player) #entra el jugador a la habitación 24 (0 -> 24)
-    #     pass
 
     def in_room_num_locate_player_from_cardinal(self, num: int, player: Player, cardinal: CardinalDirection): #actualiza la posición del jugador y lo posiciona en la habitación deseada
-        print(cardinal.cardinal_cuadricule_number())
-        self.rooms[num].player_enter_with_num_from_cardinal(player, num, cardinal)
+        # print(cardinal.cardinal_cuadricule_number())
+        room_to_enter = self.rooms[num]
+        
+        self.current_player_room = room_to_enter
+        print(self.current_player_room)
+        room_to_enter.player_enter_with_num_from_cardinal(player, num, cardinal)
+        
         
     def is_not_out_of_bounds_north(self, desired_position):
         return desired_position >= 0
@@ -113,6 +113,9 @@ class Floor(ABC): #piso
             self.in_room_num_locate_player_from_cardinal(desired_position, player, West()) #lo ubica en el oeste, porque viene del este
         else:
             print("Out of bounds!")
+            
+    def env_turn(self):
+        self.current_player_room.env_turn()
             
     
 

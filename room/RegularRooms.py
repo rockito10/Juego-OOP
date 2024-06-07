@@ -1,3 +1,4 @@
+from entities.DamagefulEntities import SpikeBox
 from resources.CardinalDirection import East, North, South, West
 from room.Cuadricule import Cuadricule
 from room.Room import BaseRoom

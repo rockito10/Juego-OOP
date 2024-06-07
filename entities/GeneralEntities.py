@@ -1,17 +1,22 @@
-from abc import ABC, abstractclassmethod
+from abc import abstractmethod
 from room.RoomObjects import RoomObject
 
-class Entity(RoomObject, ABC): 
+class Entity(RoomObject): 
     #hereda de RoomObject cómo funcionar en caso que lo pisen y cómo se ve
     def __init__(self): #necesita la cuadrícula para hacerse daño y destruirse
         self.hp = self.base_hp()
         self.current_cuadricule = None
         self.damage = self.base_damage()
+        self.total_move = 0
         
     def set_cuadricule(self, cuadricule): #pone la cuadrícula
         self.current_cuadricule = cuadricule
         
-    @abstractclassmethod
+    @abstractmethod
+    def turn(self):
+        pass
+        
+    @abstractmethod
     def base_hp(self):
         pass
     
@@ -27,28 +32,18 @@ class Entity(RoomObject, ABC):
             self.current_cuadricule.destroy_content()
 
 class Box(Entity):
+    
+    def turn(self):
+        pass
+    
     def base_hp(self):
         return 100
     
     def representation_for_room__(self, cuadricule): #Cómo se ve
         return "囗"
     
+    
     def locate_player_in_room_in_cuadricule_num(self, room, num): #finaliza el pase de manos
         # print("WAITTTTTTTTTTT")
         room.player_damage(self)
         
-class SpikeBox(Entity):
-    
-    def base_damage(self):
-        return 10
-    
-    def base_hp(self):
-        return 25
-    
-    def representation_for_room__(self, cuadricule): #Cómo se ve
-        return "四"
-    
-    def locate_player_in_room_in_cuadricule_num(self, room, num): #finaliza el pase de manos
-        
-        room.player_damage(self)
-        room.damage_player(self)

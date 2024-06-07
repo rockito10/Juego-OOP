@@ -30,6 +30,9 @@ class Player(Entity):
     # def set_current_weapon(self, weapon):
     #     self.current_weapon = weapon
     
+    def turn(self): #podría servir para aplicar efectos, como fuego, veneno
+        pass
+    
     def base_hp(self):
         return 100
         

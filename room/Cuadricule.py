@@ -1,11 +1,16 @@
-from abc import ABC, abstractclassmethod
+from abc import abstractmethod
 from room.RoomObjects import Door, Air, Wall
-from resources.Exceptions import InvalidStack
+# from resources.Exceptions import InvalidStack
 
 class Cuadricule():
-    def __init__(self, initialContent): #le doy el contenido inicial
+    def __init__(self, initialContent, room): #le doy el contenido inicial
         initialContent.set_cuadricule(self) #se pasa a sí mismo
         self.content = [initialContent] 
+        self.room = room
+        
+    def do_turn(self):
+        for content in self.content: #no debería haber mucho para recorrer
+            content.turn()
         
     def first_object(self): #devuelve el primer objeto de la cuadrícula, el que la define
         return self.content[0]
@@ -27,7 +32,7 @@ class Cuadricule():
     
     def move_to_self_num_in_room_(self, room, num: int):
     #para continuar si el jugador se mueve o no dentro de las cuadrículas
-        print(num)
+        # print(num)
         self.first_object().locate_player_in_room_in_cuadricule_num(room, num)
         
     def destroy_content(self): #cambio lo que esté por Air
